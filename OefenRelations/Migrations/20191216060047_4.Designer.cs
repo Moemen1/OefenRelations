@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OefenRelations;
 
 namespace OefenRelations.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20191216060047_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,30 +75,6 @@ namespace OefenRelations.Migrations
                     b.ToTable("FilmActeurs");
                 });
 
-            modelBuilder.Entity("OefenRelations.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ProductNaaam");
-
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Producten");
-                });
-
-            modelBuilder.Entity("OefenRelations.ProductDetails", b =>
-                {
-                    b.Property<int>("ProductDetailsId");
-
-                    b.Property<DateTime>("VervalDatum");
-
-                    b.HasKey("ProductDetailsId");
-
-                    b.ToTable("ProductDetails");
-                });
-
             modelBuilder.Entity("OefenRelations.Student", b =>
                 {
                     b.Property<int>("StudentId")
@@ -124,14 +102,6 @@ namespace OefenRelations.Migrations
                     b.HasOne("OefenRelations.Film", "Film")
                         .WithMany("FilmActeurs")
                         .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OefenRelations.ProductDetails", b =>
-                {
-                    b.HasOne("OefenRelations.Product", "Product")
-                        .WithOne("ProductDetails")
-                        .HasForeignKey("OefenRelations.ProductDetails", "ProductDetailsId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
